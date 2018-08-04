@@ -9,7 +9,7 @@ class Context {
 public:
     Context();
 
-    static std::string getPassword(const std::string userName);
+    static std::string getPassword(std::string userName);
 
     static std::map<std::string, std::string> profiles;
 

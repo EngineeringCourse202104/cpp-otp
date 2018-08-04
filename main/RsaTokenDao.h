@@ -6,7 +6,7 @@
 class RsaTokenDao {
 
 public:
-    std::string getRandom(const std::string userName);
+    std::string getRandom(std::string userName);
 };
 
 #endif //CPP_OTP_RSATOKENDAO_H

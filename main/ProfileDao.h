@@ -6,7 +6,7 @@
 class ProfileDao {
 
 public:
-    std::string getPassword(const std::string userName);
+    std::string getPassword(std::string userName);
 };
 
 #endif //CPP_OTP_PROFILEDAO_H
