@@ -4,7 +4,7 @@ To build the code and test, please:
 ```
     mkdir build
     cd build
-    cmake
+    cmake ..
     make
 ```
 To run the code, please execute `./main/cpp_otp`
