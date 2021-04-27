@@ -7,11 +7,17 @@ QueryBudget::QueryBudget(BudgetRepo &budgetRepo) : budgetRepo(budgetRepo) {
 uint32_t QueryBudget::Query(const year_month_day &startDate, const year_month_day &endDate) {
     uint32_t sum = 0;
 
-    for (const auto &item : budgetRepo.FindAll()) {
-        sum += 10 * getOverlappingDayCount(startDate, endDate, item);
+    for (const auto &budget : budgetRepo.FindAll()) {
+        sum += getDailyAmount(budget) * getOverlappingDayCount(startDate, endDate, budget);
     }
 
     return sum;
+}
+
+uint32_t QueryBudget::getDailyAmount(const Budget &budget) const {
+    return budget.amount /
+           (((budget.month / last).day() -
+             day(1)).count() + 1);
 }
 
 int

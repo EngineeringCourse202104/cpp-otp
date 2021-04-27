@@ -19,6 +19,8 @@ private:
 
     int
     getOverlappingDayCount(const year_month_day &startDate, const year_month_day &endDate, const Budget &budget) const;
+
+    uint32_t getDailyAmount(const Budget &budget) const;
 };
 
 
