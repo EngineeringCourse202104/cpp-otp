@@ -17,7 +17,8 @@ public:
 private:
     BudgetRepo &budgetRepo;
 
-    int getDayCount(const year_month_day &startDate, const year_month_day &endDate) const;
+    int
+    getOverlappingDayCount(const year_month_day &startDate, const year_month_day &endDate, const Budget &budget) const;
 };
 
 

@@ -51,3 +51,35 @@ TEST_F(QueryBudgetTest, StartEndSameMonth) {
 
     ASSERT_EQ(20, actual);
 }
+
+TEST_F(QueryBudgetTest, StartBeforeFirstDayOfMonth) {
+    givenBudgets({
+                         {2013_y / 4, 300}
+                 });
+
+    auto actual = queryBudget.Query(2013_y / 3 / 20, 2013_y / 4 / 8);
+
+    ASSERT_EQ(80, actual);
+}
+
+TEST_F(QueryBudgetTest, EndAfterLastDayOfMonth) {
+    givenBudgets({
+                         {2013_y / 4, 300}
+                 });
+
+    auto actual = queryBudget.Query(2013_y / 4 / 20, 2013_y / 5 / 8);
+
+    ASSERT_EQ(110, actual);
+}
+
+
+TEST_F(QueryBudgetTest, NoOverlap) {
+    givenBudgets({
+                         {2013_y / 4, 300}
+                 });
+
+    auto actual = queryBudget.Query(2013_y / 3 / 20, 2013_y / 3 / 25);
+
+    ASSERT_EQ(0, actual);
+}
+

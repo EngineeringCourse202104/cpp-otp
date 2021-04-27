@@ -5,14 +5,21 @@ QueryBudget::QueryBudget(BudgetRepo &budgetRepo) : budgetRepo(budgetRepo) {
 }
 
 uint32_t QueryBudget::Query(const year_month_day &startDate, const year_month_day &endDate) {
-    if (budgetRepo.FindAll().size() == 0)
+    auto all = budgetRepo.FindAll();
+    if (all.size() == 0)
         return 0;
 
-    return 10 * getDayCount(startDate, endDate);
+    return 10 * getOverlappingDayCount(startDate, endDate, *all.begin());
 }
 
 int
-QueryBudget::getDayCount(const year_month_day &startDate, const year_month_day &endDate) const {
-    return (endDate.day() - startDate.day()).count() + 1;
+QueryBudget::getOverlappingDayCount(const year_month_day &startDate, const year_month_day &endDate,
+                                    const Budget &budget) const {
+    auto overlappingStart = startDate > budget.month / 1 ? startDate : budget.month / 1;
+    auto overlappingEnd = endDate < budget.month / last ? endDate : budget.month / last;
+    if (overlappingStart > overlappingEnd) {
+        return 0;
+    }
+    return (overlappingEnd.day() - overlappingStart.day()).count() + 1;
 }
 
