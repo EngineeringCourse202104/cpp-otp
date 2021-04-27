@@ -103,3 +103,14 @@ TEST_F(QueryBudgetTest, PeriodOverMonth) {
     ASSERT_EQ(300, actual);
 }
 
+TEST_F(QueryBudgetTest, TwoMonths) {
+    givenBudgets({
+                         {2013_y / 4, 300},
+                         {2013_y / 5, 310}
+                 });
+
+    auto actual = queryBudget.Query(2013_y / 4 / 20, 2013_y / 5 / 25);
+
+    ASSERT_EQ(110 + 250, actual);
+}
+
